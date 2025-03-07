@@ -25,8 +25,7 @@ public class Consumable extends Item {
      */
     public Consumable()
     {
-        super();
-
+        super("");
         this.effect = "";
         this.uses   = 0;
     }
@@ -38,7 +37,10 @@ public class Consumable extends Item {
      */
     public Consumable(Consumable src)
     {
-
+      this.name = src.name;
+      this.effect = src.effect;
+      this.uses = src.uses;
+        // Complete this method
     }
 
     /**
@@ -81,10 +83,13 @@ public class Consumable extends Item {
         this.uses = allowed;
     }
 
+    /**
+     * Return stackable status
+     */
     @Override
     public boolean isStackable()
     {
-        return true;
+      return true;
     }
 
     /**
@@ -94,8 +99,10 @@ public class Consumable extends Item {
     public void read(Scanner snr)
     {
         super.name = snr.next();
-        effect     = snr.next();
-        uses       = snr.nextInt();
+        this.effect = snr.next();
+        this.uses = Integer.parseInt(snr.next());
+
+        // Complete this method
     }
 
     /**
@@ -104,8 +111,7 @@ public class Consumable extends Item {
     @Override
     public Item clone()
     {
-        // Replace the next line
-        return null;
+        return new Consumable(this);
     }
 
     /**
@@ -123,7 +129,8 @@ public class Consumable extends Item {
         Consumable rhsItem = (Consumable) rhs;
 
         // Replace the next line
-        return false;
+        return rhsItem.name.equals(this.name)
+          && rhsItem.effect.equals(this.effect);
     }
 
     /**
@@ -136,15 +143,20 @@ public class Consumable extends Item {
     public int hashCode()
     {
         // Replace the next line
-        return -1;
+        return this.name.hashCode() + this.effect.hashCode();
     }
 
     /**
-     * *Print* the Consumable Item.
+     * *Print* the Consumable Item
      */
     @Override
     public String toString()
     {
-        return "";
+        return String.join(
+            "",
+            String.format("%s%s%n", "  Nme: ", super.name),
+            String.format("%s%s%n", "  Eft: ", this.effect),
+            String.format("%s%d%n", "  Use: ", this.uses)
+        );
     }
 }
